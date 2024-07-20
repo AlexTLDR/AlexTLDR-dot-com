@@ -38,3 +38,7 @@
 .text-teal:hover {
   color: #B2DFDB !important;
 }
+
+.social-logo:hover {
+  opacity: 0.3;
+}

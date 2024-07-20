@@ -28,10 +28,10 @@ Installing docker
 https://docs.docker.com/get-docker/
 ```
 
-### tailwindcss
+### bootstrap
 Documentation
 ```
-https://tailwindcss.com/docs/installation
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
 ```
 
 ### Task
