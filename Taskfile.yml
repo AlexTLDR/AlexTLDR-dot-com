@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  build:
+    cmds:
+      - go build -o bin/AlexTLDR-dot-com
+    silent: true
+
+  run: 
+    cmds:
+      - ./bin/AlexTLDR-dot-com
+    silent: true
+    deps: [build]
+
+  # test:
+  #   cmds:
+  #     - go test -v ./...
+  #   silent: true
