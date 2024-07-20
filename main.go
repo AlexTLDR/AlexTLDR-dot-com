@@ -7,7 +7,7 @@ import (
 func main() {
 	app := fiber.New()
 
-	app.Static("/", "./src")
+	app.Static("/", "./templates")
 
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Redirect("/")
