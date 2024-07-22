@@ -58,3 +58,7 @@
 .animate-bounce:hover {
   animation: bounce 2s infinite;
 }
+
+.allow-breaks {
+  white-space: pre-line; /* Allows line breaks and wraps text */
+}
