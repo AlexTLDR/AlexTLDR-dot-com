@@ -9,8 +9,15 @@ import (
 func main() {
 	app := fiber.New()
 
+	// Serve files from the templates directory at the root
 	app.Static("/", "./templates")
 
+	// Serve cv.html for the /cv route
+	app.Get("/cv", func(c *fiber.Ctx) error {
+		return c.SendFile("./templates/cv.html")
+	})
+
+	// Middleware to redirect undefined routes to /
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Redirect("/")
 	})
@@ -20,6 +27,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	} else {
-		fmt.Println("Server started on port 3000")
+		// Correct the port in the log message to match the Listen port
+		fmt.Println("Server started on port 9000")
 	}
 }
