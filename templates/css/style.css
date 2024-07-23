@@ -41,6 +41,11 @@
 
 .social-logo:hover {
   opacity: 0.3;
+  background-color: transparent !important;
+}
+
+.button-logo {
+  background-color: transparent !important;
 }
 
 @keyframes bounce {
@@ -64,7 +69,8 @@
 }
 
 
-
-.footer{
-  margin-bottom: 0 !important;
+.icon-square {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .75rem;
 }
