@@ -7,7 +7,7 @@
 *.dylib
 
 # Our specific binary
-WebDev
+/bin
 
 # Images directory during development
 images/

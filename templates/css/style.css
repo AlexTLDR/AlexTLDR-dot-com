@@ -62,3 +62,9 @@
 .allow-breaks {
   white-space: pre-line; /* Allows line breaks and wraps text */
 }
+
+
+
+.footer{
+  margin-bottom: 0 !important;
+}
