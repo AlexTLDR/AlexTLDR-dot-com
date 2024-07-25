@@ -17,6 +17,16 @@ func main() {
 		return c.SendFile("./templates/cv.html")
 	})
 
+	// Serve portfolio.html for the /portfolio route
+	app.Get("/portfolio", func(c *fiber.Ctx) error {
+		return c.SendFile("./templates/portfolio.html")
+	})
+
+	// Serve stuttgart.html for the /stuttgart route
+	app.Get("/stuttgart-gophers", func(c *fiber.Ctx) error {
+		return c.SendFile("./templates/stuttgart.html")
+	})
+
 	// Middleware to redirect undefined routes to /
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Redirect("/")
