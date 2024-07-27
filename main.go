@@ -6,6 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+const port = ":4000"
+
 func main() {
 	app := fiber.New()
 
@@ -33,11 +35,11 @@ func main() {
 	})
 
 	// Log a message when the server starts
-	err := app.Listen(":9000")
+	err := app.Listen(port)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	} else {
 		// Correct the port in the log message to match the Listen port
-		fmt.Println("Server started on port 9000")
+		fmt.Println("Server started on port", port)
 	}
 }
