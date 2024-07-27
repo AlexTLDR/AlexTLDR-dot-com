@@ -18,4 +18,4 @@ services:
     logging: *highlight-logging
     # for testing, remove before deploying
     # ports:
-    #   - "5000:9000"
+    #   - "5000:3000"
