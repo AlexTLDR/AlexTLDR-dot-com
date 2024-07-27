@@ -1,3 +1,7 @@
-alextldr.com
+me.alextldr.com {
+    reverse_proxy server:3000
+}
 
-reverse_proxy server:3000
+fotohive.alextldr.com {
+    reverse_proxy server:4000
+}
