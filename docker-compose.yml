@@ -1,5 +1,3 @@
-version: "3.9"
-
 x-logging:
   &highlight-logging
     driver: fluentd
@@ -10,7 +8,7 @@ x-logging:
       tag: "highlight.project_id=5g52kp4g"
 
 services:
-  alextldr-dot-com:
+  server:
     build:
       context: ./
       dockerfile: Dockerfile
