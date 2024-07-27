@@ -1,0 +1,3 @@
+alextldr.com {
+   reverse_proxy alextldr-dot-com:3000
+}
