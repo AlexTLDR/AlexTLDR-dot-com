@@ -44,9 +44,22 @@
   background-color: transparent !important;
 }
 
+/* Button part */
+
 .button-logo {
   background-color: transparent !important;
 }
+
+.custom-border-btn {
+    border-color: #80CBC4 !important; 
+}
+
+.custom-hover-btn:hover {
+    background-color: #B2DFDB !important; 
+    border-color: #B2DFDB !important; 
+}
+
+/* Button part */
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
