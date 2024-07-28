@@ -14,8 +14,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     logging: *highlight-logging
-    networks:
-      - alextldr
     # for testing, remove before deploying
     # ports:
     #   - "5000:3000"
@@ -28,6 +26,4 @@ services:
       - 443:443
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-    networks:
-      - alextldr
     logging: *highlight-logging
