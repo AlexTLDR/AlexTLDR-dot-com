@@ -1,4 +1,4 @@
-me.alextldr.com {
+alextldr.com {
     reverse_proxy server:3000
 }
 
