@@ -87,3 +87,22 @@
     height: 3rem;
     border-radius: .75rem;
 }
+
+/* Custom scrollbar styles */
+.overflow-auto::-webkit-scrollbar {
+    width: 12px; 
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+    background: #80CBC4;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background-color: #007a87; 
+    border-radius: 10px; 
+    border: 3px solid #004d56; 
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+    background: #002329; 
+}
