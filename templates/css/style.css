@@ -16,36 +16,6 @@
   }
 }
 
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-
-footer {
-  flex-shrink: 0;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content > * {
-  margin-top: auto;
-}
 
 .icon-square {
   width: 3rem;
