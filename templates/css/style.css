@@ -139,8 +139,11 @@
     margin-right: 30px;
     float: left;
     cursor: pointer;
-    width:100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 95%;
 }
+
 
 .project figure {
     position: relative;
