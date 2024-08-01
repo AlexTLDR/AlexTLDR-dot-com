@@ -146,12 +146,12 @@
     position: relative;
     display: inline-block;
     width: 283px;
-    -moz-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
-    -webkit-box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
-    box-shadow: 0 3px 0 #e2e2e2,transparent 0 0 0;
-    -webkit-box-shadow: 0 3px 0 #e2e2e2;
-    -moz-box-shadow: 0 3px 0 #e2e2e2;
-    box-shadow: 0 3px 0 #e2e2e2;
+    -moz-box-shadow: 0 3px 0 #007a87,transparent 0 0 0;
+    -webkit-box-shadow: 0 3px 0 #007a87,transparent 0 0 0;
+    box-shadow: 0 3px 0 #007a87,transparent 0 0 0;
+    -webkit-box-shadow: 0 3px 0 #007a87;
+    -moz-box-shadow: 0 3px 0 #007a87;
+    box-shadow: 0 3px 0 #007a87;
 }
 
 .project figure figcaption {
@@ -243,8 +243,17 @@ figcaption .project-creator {
 }    
 
 .project-creator-container {
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
+}
+
+.project figure figcaption {
+    background-color: transparent; /* Replace with your preferred color */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.project-description {
+  padding: 5px;
 }
 
 
