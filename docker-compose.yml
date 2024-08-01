@@ -15,5 +15,5 @@ services:
     restart: always
     logging: *highlight-logging
     # for testing, remove before deploying
-    # ports:
-    #   - "5000:3000"
+    ports:
+      - "3000:3000"
