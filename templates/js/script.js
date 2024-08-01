@@ -40,3 +40,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function openImagePopup(imgId) {
+  const img = document.getElementById(imgId);
+  const popup = window.open("", "Image Popup", "width=800,height=600");
+  popup.document.write(`
+      <html>
+      <head>
+          <style>
+              body {
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100vh;
+                  background: linear-gradient(300deg, #007a87, #004d56, #002329);
+                  background-size: 180% 180%;
+                  animation: gradient-animation 18s ease infinite;
+              }
+              @keyframes gradient-animation {
+                  0% {
+                      background-position: 0% 50%;
+                  }
+                  50% {
+                      background-position: 100% 50%;
+                  }
+                  100% {
+                      background-position: 0% 50%;
+                  }
+              }
+              img {
+                  max-width: 90%;
+                  max-height: 90%;
+                  object-fit: contain;
+              }
+          </style>
+      </head>
+      <body>
+          <img src="${img.src}" alt="Popup Image">
+      </body>
+      </html>
+  `);
+}
+

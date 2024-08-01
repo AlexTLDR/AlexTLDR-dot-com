@@ -38,13 +38,26 @@
         <figure class="img-responsive">
           <img src="./static/portfolio/stuttgart-gophers-home-page.png" alt="Str Home Page" width="100%" height="auto">
           <figcaption>
-            <span class="project-details text-teal-simple">Full project name</span>
+            <span class="project-details text-teal-simple">Stuttgart Gophers</span>
             <div class="project-creator-container overflow-auto project-description">
-              <span class="project-creator text-teal-simple">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nulla sem, ultrices mollis nisl sed, egestas gravida est. Morbi purus ipsum, efficitur nec tortor nec, scelerisque luctus ex. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla iaculis est ac venenatis pharetra. Suspendisse fringilla, felis sed placerat blandit, lorem mi suscipit dui, eget rhoncus dui tortor eget tellus. Duis condimentum condimentum nunc, a tempor purus gravida id. Maecenas cursus mauris ut mi pharetra hendrerit. Praesent non nunc eu turpis feugiat vehicula. Maecenas blandit volutpat auctor. Pellentesque vel dui at lorem mattis imperdiet. Proin feugiat eros dui, ut porta sem varius pellentesque. Integer tempus rutrum erat. Integer consequat ultricies malesuada. Praesent dapibus ligula vitae orci lacinia, vel porttitor turpis lacinia. Mauris non odio eget velit tincidunt suscipit quis quis quam.</span>
+              <span class="project-creator text-teal-simple">This is the website of the Stuttgart Gophers meetup.
+                <br>
+                The scope of the site is to provide information about the meetup and the events.
+                <br><br>
+                Tech Stack:
+                <ul>
+                  <li>Go</li>
+                  <li>HTML</li>
+                  <li>TailwindCSS</li>
+                  <li>Docker</li>
+                  <li>GCP</li>
+                </ul>
+              </span>
             </div>
           </figcaption>
           <span class="actions">
-            <a href="#" class="btn btn-warning bnt-action">View</a>
+            <a href="#" class="btn btn-info bnt-action">View</a>
+            <a href="#" class="btn btn-info bnt-action">GitHub</a>
           </span>
         </figure>
       </div>
@@ -53,7 +66,7 @@
     <div class="col-md-6">
       <div class="project">
         <figure class="img-responsive">
-          <img src="./static/portfolio/imdb.png" width="100%" height="auto" alt="imd project screenshot">
+          <img src="./static/portfolio/imdb.png" width="100%" height="auto" alt="imd project screenshot" id="imdb-img">
           <figcaption>
             <span class="project-details text-teal-simple">Full project name</span>
             <div class="project-creator-container overflow-auto project-description">
@@ -61,7 +74,8 @@
             </div>
           </figcaption>
           <span class="actions">
-            <a href="#" class="btn btn-warning bnt-action">View</a>
+            <a href="#" class="btn btn-info bnt-action" onclick="openImagePopup('imdb-img'); return false;">View</a>
+            <a href="#" class="btn btn-info bnt-action">GitHub</a>
           </span>
         </figure>
       </div>
@@ -82,7 +96,8 @@
             </div>
           </figcaption>
           <span class="actions">
-            <a href="#" class="btn btn-warning bnt-action">View</a>
+            <a href="#" class="btn btn-info bnt-action">View</a>
+            <a href="#" class="btn btn-info bnt-action">GitHub</a>
           </span>
         </figure>
       </div>
