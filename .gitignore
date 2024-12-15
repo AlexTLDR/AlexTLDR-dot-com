@@ -99,3 +99,7 @@ $RECYCLE.BIN/
 
 # Node stuff
 node_modules/
+
+# IDE stuff
+.idea/
+.vscode/
