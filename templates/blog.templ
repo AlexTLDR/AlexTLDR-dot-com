@@ -8,35 +8,48 @@ templ Blog() {
 				<h2 class="text-4xl font-bold text-primary mb-4">Blog</h2>
 				<p class="text-lg">Thoughts, tutorials, and tech insights</p>
 			</div>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<div class="card bg-base-200 shadow-xl">
-					<div class="card-body">
-						<h3 class="card-title">Blog Post 1</h3>
-						<p>Preview of your first blog post...</p>
-						<div class="card-actions justify-end">
-							<button class="btn btn-primary">Read More</button>
-						</div>
-					</div>
-				</div>
-				<div class="card bg-base-200 shadow-xl">
-					<div class="card-body">
-						<h3 class="card-title">Blog Post 2</h3>
-						<p>Preview of your second blog post...</p>
-						<div class="card-actions justify-end">
-							<button class="btn btn-primary">Read More</button>
-						</div>
-					</div>
-				</div>
-				<div class="card bg-base-200 shadow-xl">
-					<div class="card-body">
-						<h3 class="card-title">Blog Post 3</h3>
-						<p>Preview of your third blog post...</p>
-						<div class="card-actions justify-end">
-							<button class="btn btn-primary">Read More</button>
-						</div>
-					</div>
-				</div>
+			<div
+				hx-get="/api/blog/latest"
+				hx-trigger="load, every 30m"
+				hx-swap="innerHTML"
+				hx-indicator="#blog-loading"
+				class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[200px]"
+			>
+				<!-- Loading placeholder -->
+				<div id="blog-loading" class="loading loading-spinner loading-lg mx-auto col-span-full"></div>
 			</div>
 		</div>
 	</section>
+}
+
+type BlogPost struct {
+	Title       string
+	Description string
+	URL         string
+	Date        string
+	ReadTime    string
+}
+
+templ BlogPosts(posts []BlogPost) {
+	if len(posts) == 0 {
+		<div class="col-span-full text-center">
+			<div class="alert alert-info">
+				<span>No blog posts found. Check back later!</span>
+			</div>
+		</div>
+	}
+	for _, post := range posts {
+		<div class="card bg-base-200 shadow-xl">
+			<div class="card-body">
+				<h3 class="card-title">{ post.Title }</h3>
+				<p>{ post.Description }</p>
+				<div class="text-sm text-base-content/70 mb-2">
+					{ post.Date } • { post.ReadTime }
+				</div>
+				<div class="card-actions justify-end">
+					<a href={ templ.URL(post.URL) } target="_blank" class="btn btn-primary">Read More</a>
+				</div>
+			</div>
+		</div>
+	}
 }
