@@ -11,10 +11,9 @@ COPY package-lock.json* ./
 
 # Install Node.js dependencies
 # Use npm install as fallback if package-lock.json doesn't exist
-RUN if [ -f package-lock.json ]; then npm ci --only=production; else npm install --only=production; fi
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
-# Install dev dependencies for CSS build
-RUN npm install --only=dev
+# Dependencies are already installed above (including dev dependencies needed for CSS build)
 
 # Copy source files needed for CSS build
 COPY src/ ./src/
@@ -27,7 +26,7 @@ RUN mkdir -p static/css
 RUN npm run build-css-prod
 
 # Stage 2: Build Go application
-FROM golang:1.23-alpine AS go-builder
+FROM golang:latest AS go-builder
 
 WORKDIR /app
 
