@@ -1,18 +1,37 @@
-version: '3'
+version: "3"
 
 tasks:
-  build:
-    cmds:
-      - go build -o bin/AlexTLDR-dot-com
-    silent: true
+    setup:
+        desc: Setup project directories and generate templates
+        cmds:
+            - mkdir -p static/css static/js static/img static/cv
+            - templ generate
+        silent: true
 
-  run: 
-    cmds:
-      - ./bin/AlexTLDR-dot-com
-    silent: true
-    deps: [build]
+    build:
+        desc: Build the application
+        cmds:
+            - go build -o bin/AlexTLDR-dot-com
+        silent: true
+        deps: [setup]
 
-  # test:
-  #   cmds:
-  #     - go test -v ./...
-  #   silent: true
+    run:
+        desc: Build and run the application
+        cmds:
+            - ./bin/AlexTLDR-dot-com
+        silent: true
+        deps: [build]
+
+    dev:
+        desc: Run in development mode with auto-reload
+        cmds:
+            - templ generate --watch --proxy="http://localhost:3000" --open-browser=false &
+            - go run main.go
+        silent: true
+        deps: [setup]
+
+    # test:
+    #   desc: Run tests
+    #   cmds:
+    #     - go test -v ./...
+    #   silent: true
