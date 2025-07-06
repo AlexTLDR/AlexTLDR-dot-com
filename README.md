@@ -1,9 +1,10 @@
 # alexTLDR.com web page
-## TODO 
-
-Host alexTLDR.com so the link below is active.
 
 This is the source code for [alexTLDR.com](https://alextldr.com/)
+
+## Moving this to the v1 branch
+
+I am rewriting my personal website from scratch with templ and DaisyUI but I am preserving the initial version of the website.
 
 ## Resources
 ### gofiber
