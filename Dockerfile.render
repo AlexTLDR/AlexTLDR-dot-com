@@ -1,0 +1,92 @@
+# Multi-stage Dockerfile optimized for Render deployment
+
+# Stage 1: Build CSS with Node.js
+FROM node:18-alpine AS css-builder
+
+WORKDIR /app
+
+# Copy package files first for better layer caching
+COPY package.json ./
+COPY package-lock.json* ./
+
+# Install Node.js dependencies
+# Use npm install as fallback if package-lock.json doesn't exist
+RUN if [ -f package-lock.json ]; then npm ci --only=production; else npm install --only=production; fi
+
+# Install dev dependencies for CSS build
+RUN npm install --only=dev
+
+# Copy source files needed for CSS build
+COPY src/ ./src/
+COPY tailwind.config.js ./
+COPY templates/ ./templates/
+COPY static/ ./static/
+
+# Create CSS directory and build CSS
+RUN mkdir -p static/css
+RUN npm run build-css-prod
+
+# Stage 2: Build Go application
+FROM golang:1.23-alpine AS go-builder
+
+WORKDIR /app
+
+# Install templ CLI
+RUN go install github.com/a-h/templ/cmd/templ@latest
+
+# Copy Go module files first for better layer caching
+COPY go.mod go.sum ./
+
+# Download Go dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Generate templ files
+RUN templ generate
+
+# Build the Go application with optimizations for production
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+    -ldflags='-w -s -extldflags "-static"' \
+    -a -installsuffix cgo \
+    -o main ./cmd/server
+
+# Stage 3: Runtime
+FROM alpine:latest
+
+# Install ca-certificates for HTTPS requests and add a non-root user
+RUN apk --no-cache add ca-certificates tzdata wget && \
+    addgroup -g 1001 -S appgroup && \
+    adduser -S appuser -u 1001 -G appgroup
+
+WORKDIR /app
+
+# Copy the built Go binary
+COPY --from=go-builder /app/main ./main
+
+# Copy static assets
+COPY --from=go-builder /app/static ./static
+
+# Copy the built CSS from css-builder stage
+COPY --from=css-builder /app/static/css ./static/css
+
+# Change ownership to non-root user
+RUN chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port (Render will set PORT environment variable)
+EXPOSE ${PORT:-8080}
+
+# Set environment variables
+ENV GIN_MODE=release
+ENV PORT=${PORT:-8080}
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT:-8080}/ || exit 1
+
+# Run the application
+CMD ["./main"]

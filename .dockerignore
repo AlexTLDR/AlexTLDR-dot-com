@@ -1,0 +1,87 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# node_modules (we'll install fresh in Docker)
+node_modules/
+
+# Build artifacts (will be built in Docker)
+bin/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# CSS build files (will be built in Docker)
+static/css/styles.css
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Test files
+*_test.go
+test/
+tests/
+
+# Docker files (not needed inside container)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Task files
+Taskfile.yml
+
+# Development scripts
+generate-static.go
+
+# Server files
+server.log
+server.pid
