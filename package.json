@@ -1,0 +1,30 @@
+{
+  "name": "alextldr-dot-com",
+  "version": "1.0.0",
+  "description": "Alex's personal website built with Go and Templ",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss -i ./src/input.css -o ./static/css/styles.css --watch",
+    "build-css-prod": "tailwindcss -i ./src/input.css -o ./static/css/styles.css --minify",
+    "dev": "concurrently \"npm run build-css\" \"go run cmd/server/main.go\"",
+    "postinstall": "mkdir -p src static/css"
+  },
+  "keywords": [
+    "golang",
+    "templ",
+    "tailwindcss",
+    "daisyui"
+  ],
+  "author": "Alex",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6"
+  },
+  "dependencies": {
+    "daisyui": "^4.12.14"
+  }
+}

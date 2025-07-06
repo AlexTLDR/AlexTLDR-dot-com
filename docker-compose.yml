@@ -1,19 +1,61 @@
-x-logging:
-  &highlight-logging
-    driver: fluentd
-    options:
-      fluentd-address: "tls://otel.highlight.io:24284"
-      fluentd-async: "true"
-      fluentd-sub-second-precision: "true"
-      tag: "highlight.project_id=5g52kp4g"
+version: "3.8"
 
 services:
-  server:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    restart: always
-    logging: *highlight-logging
-    # for testing, remove before deploying
-    ports:
-      - "3000:3000"
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: alextldr-dot-com
+        ports:
+            - "8080:8080"
+        environment:
+            - PORT=8080
+            - GIN_MODE=release
+        volumes:
+            # Mount static assets for development
+            - ./static:/root/static:ro
+        restart: unless-stopped
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "wget",
+                    "--no-verbose",
+                    "--tries=1",
+                    "--spider",
+                    "http://localhost:8080/",
+                ]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 40s
+
+    # Development service with hot reload
+    dev:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: alextldr-dot-com-dev
+        ports:
+            - "8080:8080"
+        environment:
+            - PORT=8080
+            - GIN_MODE=debug
+        volumes:
+            - .:/app
+            - /app/node_modules
+        working_dir: /app
+        command: >
+            sh -c "
+              npm install &&
+              npm run build-css-prod &&
+              templ generate &&
+              go run cmd/server/main.go
+            "
+        profiles:
+            - dev
+        depends_on: []
+
+networks:
+    default:
+        name: alextldr-network

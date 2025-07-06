@@ -2,18 +2,52 @@ version: "3"
 
 tasks:
     setup:
-        desc: Setup project directories and generate templates
+        desc: Setup project directories and install dependencies
         cmds:
-            - mkdir -p static/css static/js static/img static/cv
+            - mkdir -p static/css static/js static/img static/cv src
+            - npm install
             - templ generate
+        silent: true
+
+    install:
+        desc: Install Node.js and Go dependencies
+        cmds:
+            - npm install
+            - go mod download
+        silent: true
+
+    css:
+        desc: Build CSS with Tailwind and DaisyUI
+        cmds:
+            - npm run build-css-prod
+        silent: true
+        deps: [install]
+
+    css-watch:
+        desc: Build CSS with Tailwind and DaisyUI in watch mode
+        cmds:
+            - npm run build-css
+        silent: true
+        deps: [install]
+
+    templ:
+        desc: Generate templ files
+        cmds:
+            - templ generate
+        silent: true
+
+    templ-watch:
+        desc: Generate templ files in watch mode
+        cmds:
+            - templ generate --watch
         silent: true
 
     build:
         desc: Build the application
         cmds:
-            - go build -o bin/AlexTLDR-dot-com
+            - go build -o bin/AlexTLDR-dot-com ./cmd/server
         silent: true
-        deps: [setup]
+        deps: [setup, css, templ]
 
     run:
         desc: Build and run the application
@@ -25,13 +59,89 @@ tasks:
     dev:
         desc: Run in development mode with auto-reload
         cmds:
-            - templ generate --watch --proxy="http://localhost:3000" --open-browser=false &
-            - go run main.go
+            - npm run dev
         silent: true
         deps: [setup]
 
-    # test:
-    #   desc: Run tests
-    #   cmds:
-    #     - go test -v ./...
-    #   silent: true
+    dev-go:
+        desc: Run Go server only (assumes CSS is already built)
+        cmds:
+            - go run cmd/server/main.go
+        silent: true
+        deps: [templ]
+
+    docker-build:
+        desc: Build Docker image
+        cmds:
+            - docker build -t alextldr-dot-com .
+        silent: true
+
+    docker-run:
+        desc: Run Docker container
+        cmds:
+            - docker run -p 8080:8080 alextldr-dot-com
+        silent: true
+        deps: [docker-build]
+
+    docker-compose-up:
+        desc: Start with docker-compose
+        cmds:
+            - docker-compose up --build
+        silent: true
+
+    docker-compose-dev:
+        desc: Start development environment with docker-compose
+        cmds:
+            - docker-compose --profile dev up --build
+        silent: true
+
+    docker-compose-down:
+        desc: Stop docker-compose services
+        cmds:
+            - docker-compose down
+        silent: true
+
+    clean:
+        desc: Clean build artifacts
+        cmds:
+            - rm -rf bin/
+            - rm -rf static/css/styles.css
+            - rm -rf node_modules/
+            - docker system prune -f
+        silent: true
+
+    lint:
+        desc: Run linters
+        cmds:
+            - go fmt ./...
+            - go vet ./...
+            - templ fmt .
+        silent: true
+
+    test:
+        desc: Run tests
+        cmds:
+            - go test -v ./...
+        silent: true
+
+    generate-static:
+        desc: Generate static files for deployment
+        cmds:
+            - go run generate-static.go
+        silent: true
+        deps: [setup, css, templ]
+
+    prod:
+        desc: Build for production
+        cmds:
+            - npm run build-css-prod
+            - templ generate
+            - CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/AlexTLDR-dot-com ./cmd/server
+        silent: true
+        deps: [install]
+
+    help:
+        desc: Show available tasks
+        cmds:
+            - task --list
+        silent: true

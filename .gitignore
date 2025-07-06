@@ -99,6 +99,19 @@ $RECYCLE.BIN/
 
 # Node stuff
 node_modules/
+package-lock.json
+
+# CSS build files
+static/css/styles.css
+
+# Templ generated files
+*_templ.go
+
+# Build artifacts
+dist/
+docs/
+*.log
+*.pid
 
 # IDE stuff
 .idea/
