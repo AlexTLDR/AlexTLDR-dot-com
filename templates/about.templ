@@ -2,46 +2,44 @@ package templates
 
 templ About() {
 	<!-- About Section -->
-	<section id="about" class="min-h-screen bg-base-100">
-		<div class="hero min-h-screen">
-			<div class="hero-content text-center">
-				<div class="max-w-4xl">
-					<!-- Profile Image with Fade Effect -->
-					<div
-						class="avatar mb-8 transition-opacity duration-500"
-						x-data="{ scrollY: 0 }"
-						x-init="() => {
-							const updateScroll = () => scrollY = window.scrollY;
-							window.addEventListener('scroll', updateScroll);
-							updateScroll();
-						}"
-						:style="`opacity: ${Math.max(0, 1 - scrollY / 100)}`"
-					>
-						<div class="w-32 h-32 rounded-full mx-auto border-4 border-primary">
-							<img src="/static/gopherAvatar.png" alt="Alex's Avatar" class="rounded-full"/>
-						</div>
+	<section id="about" class="bg-base-100 py-16">
+		<div class="container mx-auto px-4">
+			<div class="text-center max-w-4xl mx-auto">
+				<!-- Profile Image with Fade Effect -->
+				<div
+					class="avatar mb-8 transition-opacity duration-500"
+					x-data="{ scrollY: 0 }"
+					x-init="() => {
+						const updateScroll = () => scrollY = window.scrollY;
+						window.addEventListener('scroll', updateScroll);
+						updateScroll();
+					}"
+					:style="`opacity: ${Math.max(0, 1 - scrollY / 100)}`"
+				>
+					<div class="w-32 h-32 rounded-full mx-auto border-4 border-primary">
+						<img src="/static/gopherAvatar.png" alt="Alex's Avatar" class="rounded-full"/>
 					</div>
-					<h1 class="text-5xl font-bold text-primary mb-8">Hi there! I'm Alex</h1>
-					<p class="text-xl mb-6">
-						A Full Stack Developer with a strong focus on backend development in Go.
-						I enjoy building clean, efficient solutions—whether it's with Go on the backend or
-						Tailwind/templ/Alpine.js/HTMX on the frontend.
+				</div>
+				<h1 class="text-5xl font-bold text-primary mb-8">Hi there! I'm Alex</h1>
+				<p class="text-xl mb-6">
+					A Full Stack Developer with a strong focus on backend development in Go.
+					I enjoy building clean, efficient solutions—whether it's with Go on the backend or
+					Tailwind/templ/Alpine.js/HTMX on the frontend.
+				</p>
+				<div class="divider">Code by day, cartoons by night.</div>
+				<div class="text-center max-w-3xl mx-auto space-y-4">
+					<p class="text-lg">
+						I'm passionate about continuous learning and sharing knowledge. I lead the
+						<a href="https://stuttgart-gophers.de/" target="_blank" rel="noopener noreferrer" class="text-secondary">Stuttgart Gophers meetup</a>,
+						where we explore Go topics through talks, workshops, and discussions.
 					</p>
-					<div class="divider">Code by day, cartoons by night.</div>
-					<div class="text-center max-w-3xl mx-auto space-y-4">
-						<p class="text-lg">
-							I'm passionate about continuous learning and sharing knowledge. I lead the
-							<a href="https://stuttgart-gophers.de/" target="_blank" rel="noopener noreferrer" class="text-secondary">Stuttgart Gophers meetup</a>,
-							where we explore Go topics through talks, workshops, and discussions.
-						</p>
-						<p class="text-lg">
-							Outside of coding, I'm into music, road trips, and biking. When I unwind, you'll usually find me watching
-							The Simpsons, Futurama, or Rick and Morty, or diving into Football Manager to build my dream team.
-						</p>
-					</div>
-					<div class="mt-8">
-						<a href="#cv" class="btn btn-primary btn-lg">Explore My Work</a>
-					</div>
+					<p class="text-lg">
+						Outside of coding, I'm into music, road trips, and biking. When I unwind, you'll usually find me watching
+						The Simpsons, Futurama, or Rick and Morty, or diving into Football Manager to build my dream team.
+					</p>
+				</div>
+				<div class="mt-8">
+					<a href="#cv" class="btn btn-primary btn-lg">Explore My Work</a>
 				</div>
 			</div>
 		</div>
