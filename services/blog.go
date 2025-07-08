@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -81,8 +82,8 @@ func FetchLatestBlogPosts() ([]models.BlogPost, error) {
 			dateStr = pubDate.Format("Jan 2, 2006")
 		}
 
-		// Estimate read time (very basic)
-		readTime := estimateReadTime(item.Description)
+		// Fetch reading time from the actual blog post
+		readTime := fetchReadingTimeFromPost(item.Link)
 
 		posts = append(posts, models.BlogPost{
 			Title:       item.Title,
@@ -132,30 +133,39 @@ func truncateDescription(desc string, maxLength int) string {
 	return desc[:maxLength-3] + "..."
 }
 
-func estimateReadTime(content string) string {
-	// Strip HTML tags first for better word count
-	cleanContent := content
-	cleanContent = strings.ReplaceAll(cleanContent, "<", " <")
-	cleanContent = strings.ReplaceAll(cleanContent, ">", "> ")
+func fetchReadingTimeFromPost(url string) string {
+	// Fetch the blog post page
+	resp, err := http.Get(url)
+	if err != nil {
+		return "< 1 min read" // fallback
+	}
+	defer resp.Body.Close()
 
-	// Remove all HTML tags
-	for strings.Contains(cleanContent, "<") && strings.Contains(cleanContent, ">") {
-		start := strings.Index(cleanContent, "<")
-		end := strings.Index(cleanContent[start:], ">")
-		if end != -1 {
-			cleanContent = cleanContent[:start] + cleanContent[start+end+1:]
-		} else {
-			break
-		}
+	if resp.StatusCode != http.StatusOK {
+		return "< 1 min read" // fallback
 	}
 
-	// Clean up extra spaces and count words
-	words := len(strings.Fields(cleanContent))
-
-	// Average reading speed: ~200 words per minute
-	minutes := words / 200
-	if minutes < 1 {
-		return "< 1 min read"
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "< 1 min read" // fallback
 	}
-	return fmt.Sprintf("%d min read", minutes)
+
+	// Look for the reading time in the HTML
+	// Pattern: clock[number] min read
+	readTimeRegex := regexp.MustCompile(`clock(\d+)\s+min\s+read`)
+	matches := readTimeRegex.FindStringSubmatch(string(body))
+
+	if len(matches) >= 2 {
+		return matches[1] + " min read"
+	}
+
+	// Fallback pattern in case the format is different
+	readTimeRegex2 := regexp.MustCompile(`(\d+)\s+min\s+read`)
+	matches2 := readTimeRegex2.FindStringSubmatch(string(body))
+
+	if len(matches2) >= 2 {
+		return matches2[0] // Return the full match like "5 min read"
+	}
+
+	return "< 1 min read" // fallback if nothing found
 }
