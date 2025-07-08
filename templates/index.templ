@@ -1,8 +1,10 @@
 package templates
 
+import "github.com/AlexTLDR/AlexTLDR-dot-com/config"
+
 templ Index(name string) {
 	<!DOCTYPE html>
-	<html lang="en" data-theme="dracula">
+	<html lang="en" data-theme={ config.DarkTheme }>
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,11 +20,8 @@ templ Index(name string) {
 		</head>
 		<body
 			class="bg-base-100"
-			x-data="{ theme: 'dracula' }"
-			x-init="
-		theme = localStorage.getItem('theme') || 'dracula';
-		document.documentElement.setAttribute('data-theme', theme);
-	"
+			x-data={ "{ theme: '" + config.DarkTheme + "' }" }
+			x-init={ "theme = localStorage.getItem('theme') || '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme);" }
 		>
 			@Header()
 			@About()

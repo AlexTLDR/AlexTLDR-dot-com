@@ -1,6 +1,9 @@
 package templates
 
-import "time"
+import (
+	"github.com/AlexTLDR/AlexTLDR-dot-com/config"
+	"time"
+)
 
 templ Header() {
 	<!-- Navigation -->
@@ -20,12 +23,8 @@ templ Header() {
 					<input
 						type="checkbox"
 						x-model="theme"
-						x-on:change="
-							theme = $event.target.checked ? 'fantasy' : 'dracula';
-							document.documentElement.setAttribute('data-theme', theme);
-							localStorage.setItem('theme', theme);
-						"
-						:checked="theme === 'fantasy'"
+						x-on:change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
+						:checked={ "theme === '" + config.LightTheme + "'" }
 					/>
 					<!-- Sun icon for light theme -->
 					<svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -43,12 +42,8 @@ templ Header() {
 					<input
 						type="checkbox"
 						x-model="theme"
-						x-on:change="
-							theme = $event.target.checked ? 'fantasy' : 'dracula';
-							document.documentElement.setAttribute('data-theme', theme);
-							localStorage.setItem('theme', theme);
-						"
-						:checked="theme === 'fantasy'"
+						x-on:change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
+						:checked={ "theme === '" + config.LightTheme + "'" }
 					/>
 					<!-- Sun icon for light theme -->
 					<svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

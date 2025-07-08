@@ -33,22 +33,7 @@ module.exports = {
     plugins: [require("@tailwindcss/typography"), require("daisyui")],
     daisyui: {
         themes: [
-            {
-                dracula: {
-                    ...require("daisyui/src/theming/themes")["dracula"],
-                    primary: "#ff79c6",
-                    secondary: "#bd93f9",
-                    accent: "#ffb86c",
-                    neutral: "#414558",
-                    "base-100": "#282a36",
-                    "base-200": "#1e1f29",
-                    "base-300": "#14151a",
-                    info: "#8be9fd",
-                    success: "#50fa7b",
-                    warning: "#f1fa8c",
-                    error: "#ff5555",
-                },
-            },
+            "dracula",
             "light",
             "dark",
             "cupcake",
@@ -82,12 +67,5 @@ module.exports = {
             "nord",
             "sunset",
         ],
-        darkTheme: "dracula",
-        base: true,
-        styled: true,
-        utils: true,
-        prefix: "",
-        logs: true,
-        themeRoot: ":root",
     },
 };
