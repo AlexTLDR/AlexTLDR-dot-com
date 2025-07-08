@@ -29,7 +29,7 @@ func Blog() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- Blog Section --><section id=\"blog\" class=\"min-h-screen bg-base-100\"><div class=\"container mx-auto px-8 py-16\"><div class=\"text-center mb-16\"><h2 class=\"text-4xl font-bold text-primary mb-4\">Blog</h2><p class=\"text-lg\">Thoughts, tutorials, and tech insights</p></div><div hx-get=\"/api/blog/latest\" hx-trigger=\"load, every 30m\" hx-swap=\"innerHTML\" hx-indicator=\"#blog-loading\" class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[200px]\"><!-- Loading placeholder --><div id=\"blog-loading\" class=\"loading loading-spinner loading-lg mx-auto col-span-full\"></div></div></div></section>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- Blog Section --><section id=\"blog\" class=\"bg-base-100\"><div class=\"container mx-auto px-8 py-16\"><div class=\"text-center mb-16\"><h2 class=\"text-4xl font-bold text-primary mb-4\">Blog</h2><p class=\"text-lg\">Thoughts, tutorials, and tech insights</p></div><div hx-get=\"/api/blog/latest\" hx-trigger=\"load, every 30m\" hx-swap=\"innerHTML\" hx-indicator=\"#blog-loading\" class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[200px]\"><!-- Loading placeholder --><div id=\"blog-loading\" class=\"loading loading-spinner loading-lg mx-auto col-span-full\"></div></div></div></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

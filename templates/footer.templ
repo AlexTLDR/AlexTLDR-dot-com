@@ -1,15 +1,17 @@
 package templates
 
+import "time"
+
 templ Footer() {
 	<footer class="footer footer-center p-10 bg-base-200 text-base-content">
 		<div>
-			<p>© 2025 Alex - Full Stack Developer</p>
+			<p>© { time.Now().Format("2006") } Alex - Full Stack Developer</p>
 		</div>
 	</footer>
 }
 
 templ FooterMobile() {
 	<div class="p-6 text-center h-20 flex items-center justify-center">
-		<p class="text-sm text-base-content/70">© 2025 Alex - Full Stack Developer</p>
+		<p class="text-sm text-base-content/70">© { time.Now().Format("2006") } Alex - Full Stack Developer</p>
 	</div>
 }
