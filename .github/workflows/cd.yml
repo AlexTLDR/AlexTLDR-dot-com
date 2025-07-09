@@ -54,19 +54,56 @@ jobs:
                       # Login to GitHub Container Registry
                       echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-                      # Pull the latest image
+                      # Pull the latest main image
                       docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
 
-                      # Stop and remove existing container if it exists
+                      # Check if v1 image exists and get its digest
+                      V1_EXISTS=false
+                      CURRENT_V1_DIGEST=""
+                      if docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1 >/dev/null 2>&1; then
+                          V1_EXISTS=true
+                          CURRENT_V1_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1 2>/dev/null || echo "")
+                      fi
+
+                      # Try to pull v1 image and check if it's different
+                      DEPLOY_V1=false
+                      if docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1 2>/dev/null; then
+                          NEW_V1_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1 2>/dev/null || echo "")
+                          if [ "$V1_EXISTS" = false ] || [ "$CURRENT_V1_DIGEST" != "$NEW_V1_DIGEST" ]; then
+                              DEPLOY_V1=true
+                              echo "v1 image has changes, will deploy"
+                          else
+                              echo "v1 image unchanged, skipping deployment"
+                          fi
+                      else
+                          echo "v1 image not found, skipping"
+                      fi
+
+                      # Stop and remove existing containers if they exist
                       docker stop alextldr-dot-com || true
                       docker rm alextldr-dot-com || true
 
-                      # Run the new container
+                      if [ "$DEPLOY_V1" = true ]; then
+                          docker stop alextldr-v1 || true
+                          docker rm alextldr-v1 || true
+                      fi
+
+                      # Run the main container
                       docker run -d \
                           --name alextldr-dot-com \
                           --restart unless-stopped \
                           -p 1000:8080 \
                           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
+
+                      # Run the v1 container only if there are changes
+                      if [ "$DEPLOY_V1" = true ]; then
+                          docker run -d \
+                              --name alextldr-v1 \
+                              --restart unless-stopped \
+                              -p 1001:8080 \
+                              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1
+                          echo "v1 container deployed"
+                      fi
 
                       # Clean up old images
                       docker image prune -f
