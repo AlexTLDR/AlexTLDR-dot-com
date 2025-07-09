@@ -1,6 +1,6 @@
 package config
 
 const (
-	DarkTheme  = "night"
-	LightTheme = "cmyk"
+	DarkTheme  = "dark"
+	LightTheme = "winter"
 )
