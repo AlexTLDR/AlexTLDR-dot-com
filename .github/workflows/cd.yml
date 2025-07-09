@@ -65,7 +65,7 @@ jobs:
                       docker run -d \
                           --name alextldr-dot-com \
                           --restart unless-stopped \
-                          -p 80:8080 \
+                          -p 1000:8080 \
                           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
 
                       # Clean up old images
