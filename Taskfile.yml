@@ -116,6 +116,29 @@ tasks:
             - go fmt ./...
             - go vet ./...
             - templ fmt .
+            - go tool golangci-lint run
+            - go tool staticcheck ./...
+            - go tool gosec ./...
+        silent: true
+
+    ci-lint:
+        desc: Run all linters for CI/CD
+        cmds:
+            - go tool golangci-lint run --out-format=github-actions
+            - go tool staticcheck ./...
+            - go tool gosec -fmt=json ./... || true
+        silent: true
+
+    lint-fix:
+        desc: Run golangci-lint with auto-fix
+        cmds:
+            - go tool golangci-lint run --fix
+        silent: true
+
+    security-scan:
+        desc: Run security-focused linters
+        cmds:
+            - go tool gosec ./...
         silent: true
 
     test:

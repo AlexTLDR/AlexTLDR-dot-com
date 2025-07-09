@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
@@ -133,9 +134,25 @@ func truncateDescription(desc string, maxLength int) string {
 	return desc[:maxLength-3] + "..."
 }
 
-func fetchReadingTimeFromPost(url string) string {
+func fetchReadingTimeFromPost(urlStr string) string {
+	// Validate URL before making request
+	parsedURL, err := url.Parse(urlStr)
+	if err != nil {
+		return "< 1 min read" // fallback on invalid URL
+	}
+
+	// Only allow HTTPS/HTTP schemes
+	if parsedURL.Scheme != "https" && parsedURL.Scheme != "http" {
+		return "< 1 min read" // fallback on invalid scheme
+	}
+
+	// Only allow requests to blog.alextldr.com domain
+	if parsedURL.Host != "blog.alextldr.com" {
+		return "< 1 min read" // fallback on untrusted domain
+	}
+
 	// Fetch the blog post page
-	resp, err := http.Get(url)
+	resp, err := http.Get(urlStr) // #nosec G107 -- URL is validated above
 	if err != nil {
 		return "< 1 min read" // fallback
 	}

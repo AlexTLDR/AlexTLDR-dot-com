@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/AlexTLDR/AlexTLDR-dot-com/services"
 	"github.com/AlexTLDR/AlexTLDR-dot-com/templates"
@@ -68,6 +69,16 @@ func main() {
 		}
 	})
 
+	// Configure HTTP server with timeouts
+	server := &http.Server{
+		Addr:              ":8080",
+		Handler:           mux,
+		ReadTimeout:       15 * time.Second,
+		WriteTimeout:      15 * time.Second,
+		IdleTimeout:       60 * time.Second,
+		ReadHeaderTimeout: 5 * time.Second,
+	}
+
 	log.Println("Server starting on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(server.ListenAndServe())
 }
