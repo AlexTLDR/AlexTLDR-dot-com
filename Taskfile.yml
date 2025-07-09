@@ -145,7 +145,14 @@ tasks:
         desc: Run tests
         cmds:
             - go test -v ./...
-        silent: true
+
+    test-coverage:
+        desc: Run tests with coverage
+        cmds:
+            - go test -v -cover ./...
+            - go test -coverprofile=coverage.out ./...
+            - go tool cover -html=coverage.out -o coverage.html
+            - echo "Coverage report generated at coverage.html"
 
     generate-static:
         desc: Generate static files for deployment
