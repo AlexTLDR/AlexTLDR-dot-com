@@ -25,12 +25,4 @@ jobs:
                   go tool gosec ./...
 
             - name: Run unit tests
-              run: go test ./...
-
-            - name: Run tests with coverage
-              run: go test -coverprofile=coverage.out ./...
-
-            - name: Upload coverage to Codecov
-              uses: codecov/codecov-action@v4
-              with:
-                  file: ./coverage.out
+              run: go test ./... -cover
