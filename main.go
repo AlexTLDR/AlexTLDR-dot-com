@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-const port = ":3000"
+const port = ":1001"
 
 func main() {
 	app := fiber.New()

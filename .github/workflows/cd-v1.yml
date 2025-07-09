@@ -94,7 +94,7 @@ jobs:
                           docker run -d \
                               --name alextldr-v1 \
                               --restart unless-stopped \
-                              -p 1001:8080 \
+                              -p 1001:3000 \
                               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1
 
                           echo "v1 container deployed successfully"
