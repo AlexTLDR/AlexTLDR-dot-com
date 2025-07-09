@@ -53,54 +53,21 @@ jobs:
                       # Login to GitHub Container Registry
                       echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-                      # Check if v1 container exists and get its current image
-                      CURRENT_IMAGE=""
-                      if docker inspect alextldr-v1 >/dev/null 2>&1; then
-                          CURRENT_IMAGE=$(docker inspect alextldr-v1 --format='{{.Config.Image}}')
-                          echo "Current v1 image: $CURRENT_IMAGE"
-                      else
-                          echo "No existing v1 container found"
-                      fi
-
                       # Pull the latest v1 image
                       docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1
 
-                      # Get the new image digest
-                      NEW_IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1"
-                      NEW_DIGEST=$(docker inspect $NEW_IMAGE --format='{{index .RepoDigests 0}}' 2>/dev/null || echo "")
-                      CURRENT_DIGEST=$(docker inspect $CURRENT_IMAGE --format='{{index .RepoDigests 0}}' 2>/dev/null || echo "")
+                      # Stop and remove existing v1 container
+                      docker stop alextldr-v1 || true
+                      docker rm alextldr-v1 || true
 
-                      # Check if deployment is needed
-                      DEPLOY_NEEDED=false
-                      if [ -z "$CURRENT_IMAGE" ]; then
-                          echo "First v1 deployment, will deploy"
-                          DEPLOY_NEEDED=true
-                      elif [ "$NEW_DIGEST" != "$CURRENT_DIGEST" ]; then
-                          echo "v1 image has changed, will redeploy"
-                          DEPLOY_NEEDED=true
-                      else
-                          echo "v1 image unchanged, skipping deployment"
-                      fi
+                      # Run the new v1 container
+                      docker run -d \
+                          --name alextldr-v1 \
+                          --restart unless-stopped \
+                          -p 1001:3000 \
+                          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1
 
-                      # Deploy only if needed
-                      if [ "$DEPLOY_NEEDED" = true ]; then
-                          echo "Deploying v1 container..."
-
-                          # Stop and remove existing v1 container
-                          docker stop alextldr-v1 || true
-                          docker rm alextldr-v1 || true
-
-                          # Run the new v1 container
-                          docker run -d \
-                              --name alextldr-v1 \
-                              --restart unless-stopped \
-                              -p 1001:3000 \
-                              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1
-
-                          echo "v1 container deployed successfully"
-                      else
-                          echo "v1 deployment skipped - no changes detected"
-                      fi
+                      echo "v1 container deployed successfully"
 
                       # Clean up old images
                       docker image prune -f
