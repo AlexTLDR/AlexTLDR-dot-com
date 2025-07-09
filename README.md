@@ -1,10 +1,10 @@
-# alexTLDR.com web page
+# alexTLDR.com web page (v1 - Historical)
 
-This is the source code for [alexTLDR.com](https://alextldr.com/)
+This is the source code for the original version of [alexTLDR.com](https://alextldr.com/)
 
-## Moving this to the v1 branch
+## About this v1 branch
 
-I am rewriting my personal website from scratch with templ and DaisyUI but I am preserving the initial version of the website.
+This branch contains the original version of the website built with Go Fiber and Bootstrap. It's preserved for historical reference while the main branch contains the new version built with templ and DaisyUI.
 
 ## Resources
 ### gofiber
