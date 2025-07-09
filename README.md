@@ -276,14 +276,7 @@ task dev-go
 - Use `fmt.Printf` or proper logging for local debugging
 - Check Docker logs: `docker-compose logs -f`
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Commit your changes: `git commit -m 'Add some amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
 
 ## 📜 License
 
@@ -298,7 +291,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-Alex - [GitHub](https://github.com/AlexTLDR)
+Alex - alex@alextldr.com - [GitHub](https://github.com/AlexTLDR)
 
 ---
 
