@@ -1,19 +1,18 @@
-x-logging:
-  &highlight-logging
+x-logging: &highlight-logging
     driver: fluentd
     options:
-      fluentd-address: "tls://otel.highlight.io:24284"
-      fluentd-async: "true"
-      fluentd-sub-second-precision: "true"
-      tag: "highlight.project_id=5g52kp4g"
+        fluentd-address: "tls://otel.highlight.io:24284"
+        fluentd-async: "true"
+        fluentd-sub-second-precision: "true"
+        tag: "highlight.project_id=5g52kp4g"
 
 services:
-  server:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    restart: always
-    logging: *highlight-logging
-    # for testing, remove before deploying
-    ports:
-      - "3000:3000"
+    server:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        restart: always
+        logging: *highlight-logging
+        # for testing, remove before deploying
+        ports:
+            - "3000:8080"
