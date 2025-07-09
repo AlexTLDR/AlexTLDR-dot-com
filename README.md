@@ -1,5 +1,7 @@
 # AlexTLDR.com
 
+[![CI](https://github.com/AlexTLDR/AlexTLDR-dot-com/actions/workflows/ci.yml/badge.svg)](https://github.com/AlexTLDR/AlexTLDR-dot-com/actions/workflows/ci.yml)
+
 A modern, fast, and responsive personal website built with Go, templ, and DaisyUI.
 
 ## 🚀 Overview
@@ -8,7 +10,7 @@ This is the complete rewrite of my personal website [alextldr.com](https://alext
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Go 
+- **Backend**: Go
 - **Templating**: [templ](https://templ.guide/) - Type-safe HTML templates for Go
 - **CSS Framework**: [DaisyUI](https://daisyui.com/) - Semantic component classes for Tailwind CSS
 - **CSS Build**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
@@ -58,6 +60,7 @@ This is the complete rewrite of my personal website [alextldr.com](https://alext
 
    # Or manually
    npm run build-css-prod
+
    templ generate
    ```
 
@@ -106,6 +109,7 @@ This is the complete rewrite of my personal website [alextldr.com](https://alext
 │   └── css/              # Generated CSS files
 ├── src/                  # Source CSS files
 │   └── input.css         # Tailwind CSS input file
+
 ├── handlers/             # HTTP handlers
 ├── models/               # Data models
 ├── services/             # Business logic
