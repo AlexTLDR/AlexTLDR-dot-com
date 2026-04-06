@@ -22,8 +22,7 @@ templ Header() {
 				<label class="swap swap-rotate ml-4 text-success">
 					<input
 						type="checkbox"
-						x-model="theme"
-						x-on:change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
+						@change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
 						:checked={ "theme === '" + config.LightTheme + "'" }
 					/>
 					<!-- Sun icon for light theme -->
@@ -41,8 +40,7 @@ templ Header() {
 				<label class="swap swap-rotate pl-4">
 					<input
 						type="checkbox"
-						x-model="theme"
-						x-on:change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
+						@change={ "theme = $event.target.checked ? '" + config.LightTheme + "' : '" + config.DarkTheme + "'; document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme);" }
 						:checked={ "theme === '" + config.LightTheme + "'" }
 					/>
 					<!-- Sun icon for light theme -->
