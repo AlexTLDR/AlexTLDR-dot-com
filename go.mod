@@ -1,10 +1,10 @@
 module github.com/AlexTLDR/AlexTLDR-dot-com
 
-go 1.25.6
+go 1.26.1
 
 require (
 	github.com/PuerkitoBio/goquery v1.10.3
-	github.com/a-h/templ v0.3.977
+	github.com/a-h/templ v0.3.1001
 )
 
 require (
