@@ -38,7 +38,7 @@ func FetchLatestBlogPosts() ([]models.BlogPost, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch RSS feed: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("RSS feed returned status: %d", resp.StatusCode)
@@ -156,7 +156,7 @@ func fetchReadingTimeFromPost(urlStr string) string {
 	if err != nil {
 		return "< 1 min read" // fallback
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return "< 1 min read" // fallback

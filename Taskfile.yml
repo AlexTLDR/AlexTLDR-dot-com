@@ -124,7 +124,7 @@ tasks:
     ci-lint:
         desc: Run all linters for CI/CD
         cmds:
-            - go tool golangci-lint run --out-format=github-actions
+            - go tool golangci-lint run
             - go tool staticcheck ./...
             - go tool gosec -fmt=json ./... || true
         silent: true
